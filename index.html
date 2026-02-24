@@ -1,14 +1,196 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selamat Eid Al-Fitr</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet"/>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet"/>
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+
+  <!-- Background layers -->
+  <div class="stars"        id="stars"></div>
+  <div class="lantern-wrap" id="lanterns"></div>
+  <div                      id="particles"></div>
+
+  <!-- Hidden audio element — ganti src dengan file musik Anda -->
+  <audio id="bgMusic" loop>
+    <source src="assets/music.mp3" type="audio/mpeg"/>
+  </audio>
+
+  <!-- ══════════════════════════════════
+       SCENE
+  ═══════════════════════════════════ -->
+  <div class="scene">
+    <div class="book" id="book">
+
+      <!-- ── COVER ── -->
+      <div class="cover" id="cover">
+
+        <!-- Crescent Moon & Star -->
+        <div class="cover-moon">
+          <svg width="76" height="76" viewBox="0 0 80 80" fill="none">
+            <path d="M55 40C55 30.06 48.28 21.7 39.2 19C48.28 16.3 55 7.94 55 -2
+                     C61.63 4.63 65 13.82 65 23C65 32.18 61.63 41.37 55 48
+                     C48.37 54.63 39.18 58 30 58C20.82 58 11.63 54.63 5 48
+                     C18.32 48 29.5 45.32 35.6 39.22C41.7 33.12 43 21 43 10
+                     C49.63 16.63 55 29 55 40Z"
+                  fill="url(#moonGradCover)"/>
+            <polygon points="64,8 65.5,12.5 70,12.5 66.5,15.5 68,20 64,17 60,20 61.5,15.5 58,12.5 62.5,12.5"
+                     fill="#f0d080" opacity="0.9"/>
+            <defs>
+              <linearGradient id="moonGradCover" x1="0" y1="0" x2="80" y2="80">
+                <stop offset="0%"   stop-color="#f0d080"/>
+                <stop offset="100%" stop-color="#c9a84c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+
+        <div class="cover-arabic">عيد الفطر المبارك</div>
+        <div class="cover-arabic-sm">تقبّل الله منا ومنكم</div>
+        <div class="cover-title">Selamat Eid Al-Fitr</div>
+        <div class="cover-subtitle">1446 H</div>
+
+        <button class="open-btn" onclick="openCard()">✦ Buka Kartu ✦</button>
+        <div class="cover-hint">Klik untuk membuka kartu</div>
+
+      </div><!-- /cover -->
+
+      <!-- ── INNER PAGES ── -->
+      <div class="inner-pages" id="innerPages">
+
+        <!-- LEFT PAGE: Family Photo -->
+        <div class="page-left">
+
+          <!--
+            ╔══════════════════════════════════════════╗
+            ║  HARDCODE: Ganti src dengan foto keluarga ║
+            ║  Contoh: src="assets/photo.jpg"           ║
+            ╚══════════════════════════════════════════╝
+          -->
+          <img
+            id="familyPhoto"
+            src="assets/photo.jpg"
+            alt="Foto Keluarga"
+          />
+
+          <!-- Decorative frame corners -->
+          <div class="corner tl"></div>
+          <div class="corner tr"></div>
+          <div class="corner bl"></div>
+          <div class="corner br"></div>
+
+          <!-- Caption overlay -->
+          <div class="photo-caption">
+            <!--
+              HARDCODE: Ganti teks nama keluarga di bawah ini
+            -->
+            <span class="photo-family-name">Keluarga Anda</span>
+            <span class="photo-year">Eid Al-Fitr 1446 H &nbsp;·&nbsp; 2025</span>
+          </div>
+
+        </div><!-- /page-left -->
+
+        <!-- RIGHT PAGE: Custom Message -->
+        <div class="page-right">
+
+          <!-- Small moon + Arabic -->
+          <div class="right-moon">
+            <svg width="30" height="30" viewBox="0 0 80 80" fill="none">
+              <path d="M55 40C55 30.06 48.28 21.7 39.2 19C48.28 16.3 55 7.94 55 -2
+                       C61.63 4.63 65 13.82 65 23C65 32.18 61.63 41.37 55 48
+                       C48.37 54.63 39.18 58 30 58C20.82 58 11.63 54.63 5 48
+                       C18.32 48 29.5 45.32 35.6 39.22C41.7 33.12 43 21 43 10
+                       C49.63 16.63 55 29 55 40Z"
+                    fill="url(#moonGradRight)"/>
+              <defs>
+                <linearGradient id="moonGradRight" x1="0" y1="0" x2="80" y2="80">
+                  <stop offset="0%"   stop-color="#f0d080"/>
+                  <stop offset="100%" stop-color="#c9a84c"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <span class="right-arabic-sm">عيد الفطر المبارك</span>
+          </div>
+
+          <!-- Divider -->
+          <div class="msg-divider">
+            <div class="msg-divider-line"></div>
+            <span class="msg-divider-star">✦</span>
+            <span class="msg-divider-star">✦</span>
+            <span class="msg-divider-star">✦</span>
+            <div class="msg-divider-line"></div>
+          </div>
+
+          <div class="msg-title">Selamat Eid Al-Fitr</div>
+          <div class="msg-year">1446 H &nbsp;·&nbsp; Minal 'Aidin wal Faizin</div>
+
+          <!--
+            HARDCODE: Ganti isi pesan di dalam <p> ini
+          -->
+          <div class="msg-body">
+            <p id="messageText">
+              Mohon maaf lahir dan batin.<br/><br/>
+              Semoga di hari yang fitri ini, kita semua kembali suci,
+              dipenuhi rahmat dan berkah Allah SWT.<br/><br/>
+              Selamat merayakan Idul Fitri bersama orang-orang tercinta. ❤️
+            </p>
+          </div>
+
+          <!--
+            HARDCODE: Ganti nama pengirim di bawah ini
+          -->
+          <div class="from-row">
+            <span class="from-label">Dari</span>
+            <span class="from-name">Keluarga Anda</span>
+          </div>
+
+          <!-- Ornament dots -->
+          <div class="ornament-row">
+            <div class="ornament-dot"></div>
+            <div class="ornament-dot"></div>
+            <div class="ornament-dot"></div>
+          </div>
+
+          <!-- Music player -->
+          <div class="music-player">
+            <button class="play-btn" onclick="toggleMusic()">
+              <span class="play-icon" id="playIcon">▶</span>
+            </button>
+            <div class="song-info">
+              <!--
+                HARDCODE: Ganti judul & artis lagu di sini
+              -->
+              <div class="song-title">Takbiran Eid Al-Fitr</div>
+              <div class="song-subtitle">Allahu Akbar · Allahu Akbar</div>
+            </div>
+            <div class="bars" id="bars">
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+              <div class="bar"></div>
+            </div>
+          </div>
+
+        </div><!-- /page-right -->
+
+      </div><!-- /inner-pages -->
+
+    </div><!-- /book -->
+  </div><!-- /scene -->
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+  <!-- Custom Script -->
+  <script src="main.js"></script>
+
 </body>
 </html>
